@@ -28,6 +28,7 @@ public class Vehicle implements Serializable {
 
     public Vehicle() {
 
+        super();
     }
 
 
@@ -151,30 +152,40 @@ public class Vehicle implements Serializable {
     @Override
     public boolean equals( Object obj ) {
 
-        if ( this == obj )
+        if ( this == obj ) {
             return true;
-        if ( obj == null )
+        }
+        if ( obj == null ) {
             return false;
-        if ( getClass() != obj.getClass() )
+        }
+        if ( getClass() != obj.getClass() ) {
             return false;
-        Vehicle other = (Vehicle) obj;
+        }
+        final Vehicle other = (Vehicle) obj;
         if ( passengers == null ) {
-            if ( other.passengers != null )
+            if ( other.passengers != null ) {
                 return false;
-        } else if ( !passengers.equals( other.passengers ) )
+            }
+        } else if ( !passengers.equals( other.passengers ) ) {
             return false;
+        }
         if ( plate == null ) {
-            if ( other.plate != null )
+            if ( other.plate != null ) {
                 return false;
-        } else if ( !plate.equals( other.plate ) )
+            }
+        } else if ( !plate.equals( other.plate ) ) {
             return false;
-        if ( type != other.type )
+        }
+        if ( type != other.type ) {
             return false;
+        }
         if ( wheels == null ) {
-            if ( other.wheels != null )
+            if ( other.wheels != null ) {
                 return false;
-        } else if ( !wheels.equals( other.wheels ) )
+            }
+        } else if ( !wheels.equals( other.wheels ) ) {
             return false;
+        }
         return true;
     }
 

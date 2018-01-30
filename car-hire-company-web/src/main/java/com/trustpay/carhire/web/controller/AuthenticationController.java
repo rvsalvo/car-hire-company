@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crossover.simple.client.controller;
+package com.trustpay.carhire.web.controller;
 
 
 import java.security.Principal;

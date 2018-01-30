@@ -50,7 +50,7 @@ public class VehicleServiceTest {
 
         saveVehicle();
 
-        Collection< Vehicle > vehicles = vehicleService.listAllAvailable();
+        final Collection< Vehicle > vehicles = vehicleService.listAllAvailable();
 
         assertFalse( vehicles.isEmpty() );
 
@@ -62,7 +62,7 @@ public class VehicleServiceTest {
 
         bookVehicle();
 
-        Collection< Vehicle > vehicles = vehicleService.listAllBooked();
+        final Collection< Vehicle > vehicles = vehicleService.listAllBooked();
 
         assertFalse( vehicles.isEmpty() );
 
@@ -72,7 +72,7 @@ public class VehicleServiceTest {
     @Test
     public void book() {
 
-        Book booked = bookVehicle();
+        final Book booked = bookVehicle();
 
         assertNotNull( booked );
 
@@ -83,7 +83,7 @@ public class VehicleServiceTest {
 
     private Vehicle saveVehicle() {
 
-        Vehicle vehicle = createVehicle();
+        final Vehicle vehicle = createVehicle();
 
         vehicleService.save( vehicle );
 
@@ -99,13 +99,12 @@ public class VehicleServiceTest {
 
     private Book bookVehicle() {
 
-        Vehicle vehicle = saveVehicle();
+        final Vehicle vehicle = saveVehicle();
 
-        Customer customer = mock( Customer.class );
+        final Customer customer = mock( Customer.class );
         when( customer.getEmail() ).thenReturn( UUID.randomUUID().toString() );
 
-        Book booked = vehicleService.book( vehicle, customer );
-        return booked;
+        return vehicleService.book( vehicle, customer );
     }
 
 }

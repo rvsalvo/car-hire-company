@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crossover.simple.client.configuration;
+package com.trustpay.carhire.web.configuration;
 
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -13,30 +13,24 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 
 /**
- * Configures authorization for client. 
+ * Configures authorization for client.
  * 
  * @author Rodrigo Salvo
  *
  */
 @Configuration
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@Order( SecurityProperties.ACCESS_OVERRIDE_ORDER )
 public class WebSecurityApplicationConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure( HttpSecurity http )
         throws Exception {
 
-        CookieCsrfTokenRepository repo = new CookieCsrfTokenRepository();
+        final CookieCsrfTokenRepository repo = new CookieCsrfTokenRepository();
         repo.setCookieHttpOnly( false );
-        
-        http.httpBasic().and().authorizeRequests().antMatchers( 
-             "/index.html", 
-             "/home.html", 
-             "/login.html", 
-             "/" )
-            .permitAll().anyRequest().authenticated().and()
-            .csrf()
-            .csrfTokenRepository( repo );
+
+        http.httpBasic().and().authorizeRequests().antMatchers( "/index.html", "/home.html", "/login.html", "/" ).permitAll().anyRequest().authenticated().and()
+            .csrf().csrfTokenRepository( repo );
     }
 
 }

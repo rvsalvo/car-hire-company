@@ -120,28 +120,37 @@ public class Book implements Serializable {
     @Override
     public boolean equals( Object obj ) {
 
-        if ( this == obj )
+        if ( this == obj ) {
             return true;
-        if ( obj == null )
+        }
+        if ( obj == null ) {
             return false;
-        if ( getClass() != obj.getClass() )
+        }
+        if ( getClass() != obj.getClass() ) {
             return false;
-        Book other = (Book) obj;
+        }
+        final Book other = (Book) obj;
         if ( bookedWhen == null ) {
-            if ( other.bookedWhen != null )
+            if ( other.bookedWhen != null ) {
                 return false;
-        } else if ( !bookedWhen.equals( other.bookedWhen ) )
+            }
+        } else if ( !bookedWhen.equals( other.bookedWhen ) ) {
             return false;
+        }
         if ( customer == null ) {
-            if ( other.customer != null )
+            if ( other.customer != null ) {
                 return false;
-        } else if ( !customer.equals( other.customer ) )
+            }
+        } else if ( !customer.equals( other.customer ) ) {
             return false;
+        }
         if ( vehicle == null ) {
-            if ( other.vehicle != null )
+            if ( other.vehicle != null ) {
                 return false;
-        } else if ( !vehicle.equals( other.vehicle ) )
+            }
+        } else if ( !vehicle.equals( other.vehicle ) ) {
             return false;
+        }
         return true;
     }
 
