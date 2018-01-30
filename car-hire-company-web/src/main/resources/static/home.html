@@ -1,0 +1,23 @@
+<div class="alert alert-danger" ng-show="error">
+    <div>{{errorMessage}}</div>
+</div>
+<div height="200">
+	<h1>Java Compiler Home</h1>
+</div>
+<div ng-show="authenticated">
+	<div style="float: left;">
+		<input type="file" file-model="myFile"/>
+	</div>
+	<div style="float: left; margin-left: 20px;">
+		<button ng-click="uploadFile()">Upload and Compile</button>
+	</div>
+	<div>
+		<br/>
+		<br/>
+		<textarea id="logInformation" rows="10" cols="70" ng-model="logMessage">
+		</textarea>
+	</div>
+</div>
+<div  ng-show="!authenticated">
+    <p>Login to compile your sources</p>
+</div>
