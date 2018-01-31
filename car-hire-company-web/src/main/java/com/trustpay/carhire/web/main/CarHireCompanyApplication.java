@@ -1,10 +1,11 @@
-package com.crossover.simple.client.main;
+package com.trustpay.carhire.web.main;
 
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 
@@ -14,15 +15,11 @@ import org.springframework.context.annotation.ComponentScan;
  *
  */
 @EnableAutoConfiguration
+@SpringBootApplication
 @ComponentScan( { "com.trustpay.carhire" } )
 public class CarHireCompanyApplication {
 
     private static final Logger LOG = LogManager.getLogger( CarHireCompanyApplication.class );
-
-
-    private CarHireCompanyApplication() {
-
-    }
 
 
     public static void main( String[] args ) {

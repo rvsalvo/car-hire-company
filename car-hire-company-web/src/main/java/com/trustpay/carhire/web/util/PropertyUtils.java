@@ -4,7 +4,6 @@
 package com.trustpay.carhire.web.util;
 
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -39,7 +38,7 @@ public class PropertyUtils {
     public static void loadProperties() {
 
         try {
-            PROPERTIES.load( new FileInputStream( System.getProperty( "client.config" ) + "/conf/simple-client.properties" ) );
+            PROPERTIES.load( PropertyUtils.class.getResourceAsStream( "/application.properties" ) );
         } catch ( final IOException e ) {
             LOG.error( e );
         }
@@ -48,18 +47,19 @@ public class PropertyUtils {
 
     public static int port() {
 
-        return getInt( PROPERTIES.getProperty( "client.port" ) );
+        return getInt( PROPERTIES.getProperty( "server.port" ) );
     }
 
 
-    /**
-     * Loads the server address
-     * 
-     * @return String
-     */
-    public static String serverAddress() {
+    public static String username() {
 
-        return PROPERTIES.getProperty( "server.address" );
+        return PROPERTIES.getProperty( "security.user.name" );
+    }
+
+
+    public static String password() {
+
+        return PROPERTIES.getProperty( "security.user.password" );
     }
 
 

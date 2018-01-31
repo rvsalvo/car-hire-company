@@ -29,30 +29,25 @@ angular.module('home', [ 'ngRoute' ])
         }
     };
 }])
-.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl){
-        var fd = new FormData();
-        fd.append('file', file);
-        return $http.post(uploadUrl, fd, {
+.service('vehicleService', ['$http', function ($http) {
+    this.save = function(vehicle, saveUrl){
+        return $http.post(saveUrl, vehicle, {
             transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+            headers: {'Content-Type': 'application/json'}
         });       
     }
 }])
-  .controller('home', ['$scope', 'fileUpload', function($scope, fileUpload){
+  .controller('home', ['$scope', 'vehicleService', function($scope, fileUpload){
   
 	var error = false;
 	var errorMessage = "";
 	var logMessage = "";
     
-    $scope.uploadFile = function(){
-        var file = $scope.myFile;
-		if ( console ){
-			console.log('file is ' );
-			console.dir(file);
-		}
-        var uploadUrl = "/fileUpload";
-        var result = fileUpload.uploadFileToUrl(file, uploadUrl );
+    $scope.save = function(){
+        var vehicle = $scope.myFile;
+        
+        var saveUrl = "/save";
+        var result = vehicleService.save(vehicle, saveUrl );
 		result.success(function($uploadResult){
 			$scope.error = false;			
 			$scope.logMessage = $uploadResult.message;

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 
 /**
@@ -26,11 +25,8 @@ public class WebSecurityApplicationConfiguration extends WebSecurityConfigurerAd
     protected void configure( HttpSecurity http )
         throws Exception {
 
-        final CookieCsrfTokenRepository repo = new CookieCsrfTokenRepository();
-        repo.setCookieHttpOnly( false );
-
         http.httpBasic().and().authorizeRequests().antMatchers( "/index.html", "/home.html", "/login.html", "/" ).permitAll().anyRequest().authenticated().and()
-            .csrf().csrfTokenRepository( repo );
+            .csrf().disable();
     }
 
 }

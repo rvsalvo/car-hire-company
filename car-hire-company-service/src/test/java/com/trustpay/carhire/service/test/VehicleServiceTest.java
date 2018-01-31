@@ -4,19 +4,19 @@
 package com.trustpay.carhire.service.test;
 
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Collection;
 import java.util.UUID;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.trustpay.carhire.model.Book;
 import com.trustpay.carhire.model.Customer;
@@ -29,7 +29,7 @@ import com.trustpay.carhire.service.VehicleService;
  * @author Rodrigo Salvo
  *
  */
-@ExtendWith( SpringExtension.class )
+@RunWith( SpringRunner.class )
 @ContextConfiguration( locations = { "classpath:context.xml" } )
 public class VehicleServiceTest {
 

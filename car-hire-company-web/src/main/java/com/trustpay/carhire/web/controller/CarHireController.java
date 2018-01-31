@@ -7,6 +7,7 @@ package com.trustpay.carhire.web.controller;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,7 @@ public class CarHireController {
 
 
     @RequestMapping( method = RequestMethod.POST, value = "/save" )
-    public OperationResult save( @RequestParam( "vehicle" ) Vehicle vehicle ) {
+    public OperationResult save( @RequestBody Vehicle vehicle ) {
 
         if ( vehicle == null ) {
             return new OperationResult( "Vehicle is empty", true );
@@ -68,7 +69,7 @@ public class CarHireController {
 
 
     @RequestMapping( method = RequestMethod.POST, value = "/book" )
-    public Book book( Vehicle vehicle, String email ) {
+    public Book book( @RequestParam( "vehicle" ) Vehicle vehicle, @RequestParam( "email" ) String email ) {
 
         return vehicleService.book( vehicle, new Customer( email, null ) );
     }

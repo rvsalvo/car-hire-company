@@ -2,14 +2,14 @@
     <div>{{errorMessage}}</div>
 </div>
 <div height="200">
-	<h1>Java Compiler Home</h1>
+	<h1>Car Hire Company App</h1>
 </div>
 <div ng-show="authenticated">
 	<div style="float: left;">
-		<input type="file" file-model="myFile"/>
+		<input type="text" file-model="myFile"/>
 	</div>
 	<div style="float: left; margin-left: 20px;">
-		<button ng-click="uploadFile()">Upload and Compile</button>
+		<button ng-click="save()">Save Vehicle</button>
 	</div>
 	<div>
 		<br/>
@@ -19,5 +19,5 @@
 	</div>
 </div>
 <div  ng-show="!authenticated">
-    <p>Login to compile your sources</p>
+    <p>Login to book a vehicle</p>
 </div>
