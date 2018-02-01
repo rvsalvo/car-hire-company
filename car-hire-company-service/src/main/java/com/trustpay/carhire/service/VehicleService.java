@@ -7,7 +7,6 @@ package com.trustpay.carhire.service;
 import java.util.Collection;
 
 import com.trustpay.carhire.model.Book;
-import com.trustpay.carhire.model.Customer;
 import com.trustpay.carhire.model.Vehicle;
 
 
@@ -26,5 +25,5 @@ public interface VehicleService {
     Collection< Vehicle > listAllBooked();
 
 
-    Book book( Vehicle vehicle, Customer customer );
+    Book book( Book book );
 }

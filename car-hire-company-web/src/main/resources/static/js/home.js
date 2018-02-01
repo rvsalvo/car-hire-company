@@ -9,6 +9,10 @@ angular.module('home', [ 'ngRoute' ])
       templateUrl : 'login.html',
       controller : 'navigation',
       controllerAs: 'controller'
+    }).when('/register', {
+        templateUrl : 'register.html',
+        controller : 'navigation',
+        controllerAs: 'controller'
     }).otherwise('/');
 
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -35,7 +39,13 @@ angular.module('home', [ 'ngRoute' ])
             transformRequest: angular.identity,
             headers: {'Content-Type': 'application/json'}
         });       
-    }
+    };
+    this.book = function(book, bookUrl){
+        return $http.post(bookUrl, book, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': 'application/json'}
+        });       
+    };    
 }])
   .controller('home', ['$scope', 'vehicleService', function($scope, vehicleService){
   
@@ -59,6 +69,24 @@ angular.module('home', [ 'ngRoute' ])
 			$scope.error = true;
         });
     };
+    
+    $scope.book = function(){
+        var book = {'vehicle':{'plate':$scope.vehiclePlate},'email':$scope.email}
+        
+        var saveUrl = "/book";
+        var result = vehicleService.book(book, saveUrl );
+		result.success(function($optionResult){
+			$scope.error = $optionResult.error;			
+			if ( $scope.error ){
+				$scope.errorMessage = $optionResult.message;
+			}
+        })
+        .error(function($error){
+			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
+			$scope.error = true;
+        });
+    };
+    
     
 }])
   .controller('navigation', function($rootScope, $http, $location) {

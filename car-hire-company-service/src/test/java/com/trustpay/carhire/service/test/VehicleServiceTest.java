@@ -104,7 +104,7 @@ public class VehicleServiceTest {
         final Customer customer = mock( Customer.class );
         when( customer.getEmail() ).thenReturn( UUID.randomUUID().toString() );
 
-        return vehicleService.book( vehicle, customer );
+        return vehicleService.book( new Book( vehicle, customer ) );
     }
 
 }

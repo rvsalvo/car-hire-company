@@ -38,6 +38,14 @@ public class Book implements Serializable {
     }
 
 
+    public Book( Vehicle vehicle, Customer customer ) {
+
+        super();
+        this.vehicle = vehicle;
+        this.customer = customer;
+    }
+
+
     /**
      * @return the vehicle
      */

@@ -59,7 +59,10 @@ public class VehicleServiceImpl implements VehicleService {
 
 
     @Override
-    public Book book( Vehicle vehicle, Customer customer ) {
+    public Book book( Book book ) {
+
+        final Vehicle vehicle = book.getVehicle();
+        final Customer customer = book.getCustomer();
 
         Assert.notNull( vehicle, "Vehicle can not be null" );
 

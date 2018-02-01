@@ -2,7 +2,7 @@
     <div>{{errorMessage}}</div>
 </div>
 <div height="200">
-	<h2>Car Hire Company</h2>
+	<h2>Car Hire Company - Register a new vehicle</h2>
 </div>
 <div ng-show="authenticated">
 	<div style="float: left;">
@@ -12,7 +12,7 @@
 		<select ng-model="vehicType"/>
 	</div>
 	<div style="float: left; margin-left: 20px;">
-		<button ng-click="book()">Book Vehicle</button>
+		<button ng-click="save()">Save Vehicle</button>
 	</div>
 	<div>
 		<br/>
@@ -20,5 +20,5 @@
 	</div>
 </div>
 <div  ng-show="!authenticated">
-    <p>Login to book a vehicle</p>
+    <p>Login to register a vehicle</p>
 </div>

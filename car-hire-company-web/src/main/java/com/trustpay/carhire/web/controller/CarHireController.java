@@ -10,19 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trustpay.carhire.model.Book;
-import com.trustpay.carhire.model.Customer;
 import com.trustpay.carhire.model.Vehicle;
 import com.trustpay.carhire.service.VehicleService;
 import com.trustpay.carhire.web.view.OperationResult;
 
 
 /**
- * Responsible for handling the file attachment and sending it to server for
- * compilation.
+ * Responsible for handling book and register of vehicles.
  * 
  * @author Rodrigo Salvo
  *
@@ -69,9 +66,9 @@ public class CarHireController {
 
 
     @RequestMapping( method = RequestMethod.POST, value = "/book" )
-    public Book book( @RequestParam( "vehicle" ) Vehicle vehicle, @RequestParam( "email" ) String email ) {
+    public Book book( @RequestBody Book book ) {
 
-        return vehicleService.book( vehicle, new Customer( email, null ) );
+        return vehicleService.book( book );
     }
 
 }
