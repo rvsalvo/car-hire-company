@@ -2,11 +2,14 @@
     <div>{{errorMessage}}</div>
 </div>
 <div height="200">
-	<h1>Car Hire Company App</h1>
+	<h2>Car Hire Company</h2>
 </div>
 <div ng-show="authenticated">
 	<div style="float: left;">
-		<input type="text" file-model="myFile"/>
+		<input type="text" ng-model="vehiclePlate"/>
+	</div>
+	<div style="float: left;">
+		<select ng-model="vehicType"/>
 	</div>
 	<div style="float: left; margin-left: 20px;">
 		<button ng-click="save()">Save Vehicle</button>
@@ -14,8 +17,6 @@
 	<div>
 		<br/>
 		<br/>
-		<textarea id="logInformation" rows="10" cols="70" ng-model="logMessage">
-		</textarea>
 	</div>
 </div>
 <div  ng-show="!authenticated">

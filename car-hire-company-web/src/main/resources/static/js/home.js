@@ -37,23 +37,25 @@ angular.module('home', [ 'ngRoute' ])
         });       
     }
 }])
-  .controller('home', ['$scope', 'vehicleService', function($scope, fileUpload){
+  .controller('home', ['$scope', 'vehicleService', function($scope, vehicleService){
   
 	var error = false;
 	var errorMessage = "";
 	var logMessage = "";
     
     $scope.save = function(){
-        var vehicle = $scope.myFile;
+        var vehicle = {'plate':$scope.vehiclePlate,'type':$scope.vehicleType,'passengers':$scope.vehiclePassengers,'wheels':$scope.vehicleWheels};
         
         var saveUrl = "/save";
         var result = vehicleService.save(vehicle, saveUrl );
-		result.success(function($uploadResult){
-			$scope.error = false;			
-			$scope.logMessage = $uploadResult.message;
+		result.success(function($optionResult){
+			$scope.error = $optionResult.error;			
+			if ( $scope.error ){
+				$scope.errorMessage = $optionResult.message;
+			}
         })
         .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error uploading file!";
+			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
 			$scope.error = true;
         });
     };
