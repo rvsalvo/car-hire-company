@@ -59,10 +59,14 @@ angular.module('home', [ 'ngRoute' ])
         var saveUrl = "/save";
         var result = vehicleService.save(vehicle, saveUrl );
 		result.success(function($optionResult){
-			$scope.error = $optionResult.error;			
-			if ( $scope.error ){
-				$scope.errorMessage = $optionResult.message;
+			if (!!$optionResult.errorMessage){
+				$scope.error = true;
+				$scope.errorMessage = $optionResult.errorMessage;
+			} else {
+				$scope.success = true;
+				$scope.message = 'Vechicle saved with success!';
 			}
+			resetVehicleForm();
         })
         .error(function($error){
 			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
@@ -85,6 +89,13 @@ angular.module('home', [ 'ngRoute' ])
 			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
 			$scope.error = true;
         });
+    };
+    
+    $scope.resetVehicleForm = function(){
+    	$scope.vehiclePlate = '';
+    	$scope.vehicleType = '';
+    	$scope.vehiclePassengers = '';
+    	$scope.vehicleWheels = '';
     };
     
     

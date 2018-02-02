@@ -3,12 +3,11 @@
 </div>
 <form role="form" ng-submit="controller.login()">
     <div class="form-group">
-        <label for="username">Username:</label> <input type="text"
-            class="form-control" id="username" name="username" ng-model="controller.credentials.username"/>
+        <label for="username">Username:</label> 
+        <input type="text" class="form-control" id="username" name="username" ng-model="controller.credentials.username" style="width:150px;"/>
     </div>
     <div class="form-group">
-        <label for="password">Password:</label> <input type="password"
-            class="form-control" id="password" name="password" ng-model="controller.credentials.password"/>
+        <label for="password">Password:</label> <input type="password" class="form-control" id="password" name="password" ng-model="controller.credentials.password" style="width:150px;"/>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Login</button>
 </form>

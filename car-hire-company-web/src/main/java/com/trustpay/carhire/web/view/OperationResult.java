@@ -16,11 +16,11 @@ package com.trustpay.carhire.web.view;
  * @author Rodrigo Salvo
  *
  */
-public class OperationResult {
+public class OperationResult< T > {
 
-    private String message;
+    private String errorMessage;
 
-    private boolean error;
+    private T result;
 
 
     public OperationResult() {
@@ -29,35 +29,32 @@ public class OperationResult {
     }
 
 
-    public OperationResult( String message, boolean error ) {
+    public OperationResult( String errorMessage ) {
 
         super();
-        this.message = message;
-        this.error = error;
+        this.errorMessage = errorMessage;
     }
 
 
-    public String getMessage() {
+    public OperationResult( String errorMessage, T result ) {
 
-        return message;
+        super();
+        this.errorMessage = errorMessage;
+        this.result = result;
     }
 
 
-    public void setMessage( String message ) {
+    public OperationResult( T result ) {
 
-        this.message = message;
+        super();
+        this.result = result;
     }
 
 
-    public boolean isError() {
+    @Override
+    public String toString() {
 
-        return error;
-    }
-
-
-    public void setError( boolean error ) {
-
-        this.error = error;
+        return "OperationResult [errorMessage=" + errorMessage + ", result=" + result + "]";
     }
 
 
@@ -66,8 +63,8 @@ public class OperationResult {
 
         final int prime = 31;
         int result = 1;
-        result = prime * result + ( error ? 1231 : 1237 );
-        result = prime * result + ( ( message == null ) ? 0 : message.hashCode() );
+        result = prime * result + ( ( errorMessage == null ) ? 0 : errorMessage.hashCode() );
+        result = prime * result + ( ( this.result == null ) ? 0 : this.result.hashCode() );
         return result;
     }
 
@@ -84,25 +81,46 @@ public class OperationResult {
         if ( getClass() != obj.getClass() ) {
             return false;
         }
-        final OperationResult other = (OperationResult) obj;
-        if ( error != other.error ) {
-            return false;
-        }
-        if ( message == null ) {
-            if ( other.message != null ) {
+        final OperationResult< ? > other = (OperationResult< ? >) obj;
+        if ( errorMessage == null ) {
+            if ( other.errorMessage != null ) {
                 return false;
             }
-        } else if ( !message.equals( other.message ) ) {
+        } else if ( !errorMessage.equals( other.errorMessage ) ) {
+            return false;
+        }
+        if ( result == null ) {
+            if ( other.result != null ) {
+                return false;
+            }
+        } else if ( !result.equals( other.result ) ) {
             return false;
         }
         return true;
     }
 
 
-    @Override
-    public String toString() {
+    public String getErrorMessage() {
 
-        return "OperationResult [message=" + message + ", error=" + error + "]";
+        return errorMessage;
+    }
+
+
+    public void setErrorMessage( String errorMessage ) {
+
+        this.errorMessage = errorMessage;
+    }
+
+
+    public T getResult() {
+
+        return result;
+    }
+
+
+    public void setResult( T result ) {
+
+        this.result = result;
     }
 
 }

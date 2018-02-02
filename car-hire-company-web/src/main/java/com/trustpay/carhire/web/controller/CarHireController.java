@@ -4,9 +4,13 @@
 package com.trustpay.carhire.web.controller;
 
 
+import static org.springframework.http.ResponseEntity.status;
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,43 +36,63 @@ public class CarHireController {
 
 
     @RequestMapping( method = RequestMethod.POST, value = "/save" )
-    public OperationResult save( @RequestBody Vehicle vehicle ) {
+    public ResponseEntity< OperationResult< Void > > save( @RequestBody Vehicle vehicle ) {
 
         if ( vehicle == null ) {
-            return new OperationResult( "Vehicle is empty", true );
+            status( HttpStatus.BAD_REQUEST ).body( new OperationResult<>( "Vehicle is empty" ) );
         }
 
         try {
 
             vehicleService.save( vehicle );
 
-        } catch ( final Throwable e ) {
-            return new OperationResult( e.getMessage(), true );
+        } catch ( final Exception e ) {
+            return generateErrorResult( e );
         }
 
-        return new OperationResult();
+        return status( HttpStatus.OK ).body( new OperationResult<>() );
 
     }
 
 
     @RequestMapping( method = RequestMethod.GET, value = "/listAllAvailable" )
-    public Collection< Vehicle > listAllAvailable() {
+    public ResponseEntity< OperationResult< Collection< Vehicle > > > listAllAvailable() {
 
-        return vehicleService.listAllAvailable();
+        try {
+            return status( HttpStatus.OK ).body( new OperationResult<>( vehicleService.listAllAvailable() ) );
+        } catch ( final Exception e ) {
+            return generateErrorResult( e );
+        }
+
     }
 
 
     @RequestMapping( method = RequestMethod.GET, value = "/listAllBooked" )
-    public Collection< Vehicle > listAllBooked() {
+    public ResponseEntity< OperationResult< Collection< Vehicle > > > listAllBooked() {
 
-        return vehicleService.listAllBooked();
+        try {
+            return status( HttpStatus.OK ).body( new OperationResult<>( vehicleService.listAllBooked() ) );
+        } catch ( final Exception e ) {
+            return generateErrorResult( e );
+        }
+
     }
 
 
     @RequestMapping( method = RequestMethod.POST, value = "/book" )
-    public Book book( @RequestBody Book book ) {
+    public ResponseEntity< OperationResult< Book > > book( @RequestBody Book book ) {
 
-        return vehicleService.book( book );
+        try {
+            return status( HttpStatus.OK ).body( new OperationResult<>( vehicleService.book( book ) ) );
+        } catch ( final Exception e ) {
+            return generateErrorResult( e );
+        }
+    }
+
+
+    private < T > ResponseEntity< OperationResult< T > > generateErrorResult( final Exception e ) {
+
+        return status( HttpStatus.INTERNAL_SERVER_ERROR ).body( new OperationResult<>( e.getMessage() ) );
     }
 
 }

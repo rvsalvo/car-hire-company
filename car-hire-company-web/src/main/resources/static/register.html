@@ -1,16 +1,29 @@
-<div class="alert alert-danger" ng-show="error">
-    <div>{{errorMessage}}</div>
-</div>
-<div height="200">
-	<h2>Car Hire Company - Register a new vehicle</h2>
+<div ng-include="header.html" />
+<div height="200" style="padding-bottom: 40px;">
+	<h3>Car Hire Company - Register a new vehicle</h3>
 </div>
 <div ng-show="authenticated">
 	<div style="float: left;">
-		<input type="text" ng-model="vehiclePlate"/>
+		<label>Plate:</label>
+		<input type="text" ng-model="vehiclePlate" style="height:30px;"/>
+	</div>
+	<div style="float: left;padding-left:20px;">
+		<label>Type:</label>
+		<select ng-model="vehicleType" style="height:30px;">
+			<option value="CAR">Car</option>
+			<option value="VAN">Van</option>
+			<option value="CONVERTIBLE">Convertible</option>
+			<option value="MOTORBIKE">Motorbike</option>			
+		</select>
 	</div>
 	<div style="float: left;">
-		<select ng-model="vehicType"/>
+		<label>Wheels:</label>
+		<input type="text" ng-model="vehicleWheels" style="height:30px;"/>
 	</div>
+	<div style="float: left;">
+		<label>Passengers:</label>
+		<input type="text" ng-model="vehiclePassengers" style="height:30px;"/>
+	</div>	
 	<div style="float: left; margin-left: 20px;">
 		<button ng-click="save()">Save Vehicle</button>
 	</div>

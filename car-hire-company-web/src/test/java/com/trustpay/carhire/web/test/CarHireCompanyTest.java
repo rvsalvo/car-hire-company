@@ -25,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.trustpay.carhire.model.Book;
+import com.trustpay.carhire.model.Customer;
 import com.trustpay.carhire.model.Vehicle;
 import com.trustpay.carhire.model.VehicleType;
 import com.trustpay.carhire.web.test.configuration.CarHireCompanyContextConfiguration;
@@ -44,17 +46,25 @@ public class CarHireCompanyTest {
     private TestRestTemplate restTemplate;
 
 
+    @SuppressWarnings( "rawtypes" )
     @Test
-    public void testCreateVehicle() {
+    public void testCreateAndBookVehicle() {
 
         final Vehicle vehicle = createVehicle();
 
         final HttpHeaders headers = createHeaders( PropertyUtils.username(), PropertyUtils.password() );
         headers.setContentType( MediaType.APPLICATION_JSON );
-        final HttpEntity< Vehicle > entity = new HttpEntity<>( vehicle, headers );
+        final HttpEntity< Vehicle > vehicleEntity = new HttpEntity<>( vehicle, headers );
 
-        final ResponseEntity< OperationResult > response = this.restTemplate.postForEntity( "/save", entity, OperationResult.class );
+        ResponseEntity< OperationResult > response = this.restTemplate.postForEntity( "/save", vehicleEntity, OperationResult.class );
         assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
+
+        final HttpEntity< Book > bookEntity =
+            new HttpEntity<>( new Book( vehicle, new Customer( UUID.randomUUID().toString(), UUID.randomUUID().toString() ) ), headers );
+
+        response = this.restTemplate.postForEntity( "/book", bookEntity, OperationResult.class );
+        assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
+
     }
 
 
@@ -66,10 +76,10 @@ public class CarHireCompanyTest {
         headers.setContentType( MediaType.APPLICATION_JSON );
         final HttpEntity< ? > entity = new HttpEntity<>( headers );
 
-        final ResponseEntity< Collection > response = this.restTemplate.exchange( "/listAllAvailable", HttpMethod.GET, entity, Collection.class );
+        final ResponseEntity< OperationResult > response = this.restTemplate.exchange( "/listAllAvailable", HttpMethod.GET, entity, OperationResult.class );
 
         assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
-        assertTrue( response.getBody().isEmpty() );
+        assertTrue( ( (Collection) response.getBody().getResult() ).isEmpty() );
     }
 
 
@@ -81,10 +91,10 @@ public class CarHireCompanyTest {
         headers.setContentType( MediaType.APPLICATION_JSON );
         final HttpEntity< ? > entity = new HttpEntity<>( headers );
 
-        final ResponseEntity< Collection > response = this.restTemplate.exchange( "/listAllBooked", HttpMethod.GET, entity, Collection.class );
+        final ResponseEntity< OperationResult > response = this.restTemplate.exchange( "/listAllBooked", HttpMethod.GET, entity, OperationResult.class );
 
         assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
-        assertTrue( response.getBody().isEmpty() );
+        assertTrue( ( (Collection) response.getBody().getResult() ).isEmpty() );
     }
 
 
