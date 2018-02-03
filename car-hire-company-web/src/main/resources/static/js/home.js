@@ -47,28 +47,39 @@ angular.module('home', [ 'ngRoute' ])
   .controller('home', ['$scope', 'vehicleService', function($scope, vehicleService){
   
     $scope.book = function(){
-        var book = {'vehicle':{'plate':$scope.vehiclePlate},'email':$scope.email}
+    	if ( !validateBook() ){
+    		$scope.errorMessage = 'All fields are required!';
+    		$scope.error = true;
+    		return;
+    	}    	
+        var book = {'vehicle':{'plate':$scope.vehiclePlate},'customer':{'email':$scope.customerEmail}}
         
-        var saveUrl = "/book";
-        var result = vehicleService.book(book, saveUrl );
+        var bookUrl = "/book";
+        var result = vehicleService.book(book, bookUrl );
 		result.success(function($optionResult){
-			$scope.error = $optionResult.error;			
-			if ( $scope.error ){
-				$scope.errorMessage = $optionResult.message;
+			if (!!$optionResult.errorMessage){
+				$scope.error = true;
+				$scope.errorMessage = $optionResult.errorMessage;
+			} else {
+				$scope.success = true;
+				$scope.message = 'Vechicle booked with success!';
 			}
+			resetBookForm();
         })
         .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
+			$scope.errorMessage = !!$error.message ? $error.message : "Error booking vehicle!";
 			$scope.error = true;
         });
     };
     
-    $scope.resetVehicleForm = function(){
-    	$scope.vehiclePlate = '';
-    	$scope.vehicleType = '';
-    	$scope.vehiclePassengers = '';
-    	$scope.vehicleWheels = '';
+   var resetBookForm = function(){
+    	$scope.customerEmail = '';
+    	$scope.vehicleText = '';
     };
+    
+    var validateBook = function(){
+    	return ( !!$scope.customerEmail && !!$scope.vehiclePlate );
+    };        
     
     
 }])
