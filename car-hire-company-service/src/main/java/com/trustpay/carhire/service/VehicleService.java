@@ -22,7 +22,7 @@ public interface VehicleService {
     Collection< Vehicle > listAllAvailable();
 
 
-    Collection< Vehicle > listAllBooked();
+    Collection< Book > listAllBooked();
 
 
     Book book( Book book );

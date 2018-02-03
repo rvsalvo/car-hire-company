@@ -1,37 +1,41 @@
-<div ng-include="header.html" />
-<div height="200" style="padding-bottom: 40px;">
-	<h3>Car Hire Company - Register a new vehicle</h3>
+<div class="alert alert-danger" ng-show="error">
+	<div>{{errorMessage}}</div>
+</div>
+<div class="alert alert-success" ng-show="success">
+	<div>{{message}}</div>
+</div>
+<div class="pageTag">
+	<h3>Register a new vehicle</h3>
 </div>
 <div ng-show="authenticated">
-	<div style="float: left;">
-		<label>Plate:</label>
-		<input type="text" ng-model="vehiclePlate" style="height:30px;"/>
+	<div class="field">
+		<label>Plate </label> 
+		<input type="text" ng-model="vehiclePlate" style="height: 30px;" />
 	</div>
-	<div style="float: left;padding-left:20px;">
-		<label>Type:</label>
-		<select ng-model="vehicleType" style="height:30px;">
+	<div class="field">
+		<label>&nbsp;Type </label> 
+		<select ng-model="vehicleType" style="height: 30px; width: 180px;">
 			<option value="CAR">Car</option>
 			<option value="VAN">Van</option>
 			<option value="CONVERTIBLE">Convertible</option>
-			<option value="MOTORBIKE">Motorbike</option>			
+			<option value="MOTORBIKE">Motorbike</option>
 		</select>
 	</div>
-	<div style="float: left;">
-		<label>Wheels:</label>
-		<input type="text" ng-model="vehicleWheels" style="height:30px;"/>
+	<div class="field">
+		<label>Wheels </label> 
+		<input type="text" ng-model="vehicleWheels" style="height: 30px;" />
 	</div>
-	<div style="float: left;">
-		<label>Passengers:</label>
-		<input type="text" ng-model="vehiclePassengers" style="height:30px;"/>
-	</div>	
-	<div style="float: left; margin-left: 20px;">
+	<div class="field">
+		<label>&nbsp;Passengers </label> 
+		<input type="text" ng-model="vehiclePassengers" style="height: 30px;" />
+	</div>
+	<div class="field">
 		<button ng-click="save()">Save Vehicle</button>
 	</div>
 	<div>
-		<br/>
-		<br/>
+		<br/><br/>
 	</div>
 </div>
-<div  ng-show="!authenticated">
-    <p>Login to register a vehicle</p>
+<div ng-show="!authenticated">
+	<p>Login to register a vehicle</p>
 </div>

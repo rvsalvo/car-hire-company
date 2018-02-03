@@ -23,7 +23,7 @@ public interface VehicleRepository {
     Collection< Vehicle > listAllAvailable();
 
 
-    Collection< Vehicle > listAllBooked();
+    Collection< Book > listAllBooked();
 
 
     Book book( Vehicle vehicle, Customer customer );

@@ -11,69 +11,41 @@ angular.module('home', [ 'ngRoute' ])
       controllerAs: 'controller'
     }).when('/register', {
         templateUrl : 'register.html',
-        controller : 'navigation',
+        controller : 'register',
+        controllerAs: 'controller'
+    }).when('/listBooked', {
+        templateUrl : 'listBooked.html',
+        controller : 'listBooked',
+        controllerAs: 'controller'
+    }).when('/listAvailableVehicles', {
+        templateUrl : 'listAvailableVehicles.html',
+        controller : 'listAvailableVehicles',
         controllerAs: 'controller'
     }).otherwise('/');
 
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
   })
-  .directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}])
 .service('vehicleService', ['$http', function ($http) {
-    this.save = function(vehicle, saveUrl){
-        return $http.post(saveUrl, vehicle, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': 'application/json'}
-        });       
-    };
     this.book = function(book, bookUrl){
         return $http.post(bookUrl, book, {
-            transformRequest: angular.identity,
             headers: {'Content-Type': 'application/json'}
         });       
     };    
+    this.save = function(vehicle, saveUrl){
+        return $http.post(saveUrl, vehicle, {
+            headers: {'Content-Type': 'application/json'}
+        });       
+    }; 
+    this.listAllBooked = function (){
+    	return $http.get('/listAllBooked');
+    };
+    this.listAllAvailable = function (){
+    	return $http.get('/listAllAvailable');
+    };
 }])
   .controller('home', ['$scope', 'vehicleService', function($scope, vehicleService){
   
-	var error = false;
-	var errorMessage = "";
-	var logMessage = "";
-    
-    $scope.save = function(){
-        var vehicle = {'plate':$scope.vehiclePlate,'type':$scope.vehicleType,'passengers':$scope.vehiclePassengers,'wheels':$scope.vehicleWheels};
-        
-        var saveUrl = "/save";
-        var result = vehicleService.save(vehicle, saveUrl );
-		result.success(function($optionResult){
-			if (!!$optionResult.errorMessage){
-				$scope.error = true;
-				$scope.errorMessage = $optionResult.errorMessage;
-			} else {
-				$scope.success = true;
-				$scope.message = 'Vechicle saved with success!';
-			}
-			resetVehicleForm();
-        })
-        .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
-			$scope.error = true;
-        });
-    };
-    
     $scope.book = function(){
         var book = {'vehicle':{'plate':$scope.vehiclePlate},'email':$scope.email}
         
@@ -143,6 +115,92 @@ angular.module('home', [ 'ngRoute' ])
 		$location.path("/");
 	  });
 	}  
-});
+})
+ .controller('register', ['$scope', 'vehicleService', function($scope, vehicleService){
+  
+    $scope.save = function(){
+    	if ( !validateSave() ){
+    		$scope.errorMessage = 'All fields are required!';
+    		$scope.error = true;
+    		return;
+    	}
+        var vehicle = {'plate':$scope.vehiclePlate,'type':$scope.vehicleType,'passengers':$scope.vehiclePassengers,'wheels':$scope.vehicleWheels};
+        
+        var saveUrl = "/save";
+        var result = vehicleService.save(vehicle, saveUrl );
+		result.success(function($optionResult){
+			if (!!$optionResult.errorMessage){
+				$scope.error = true;
+				$scope.errorMessage = $optionResult.errorMessage;
+			} else {
+				$scope.success = true;
+				$scope.message = 'Vechicle saved with success!';
+			}
+			resetSaveVehicleForm();
+        })
+        .error(function($error){
+			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
+			$scope.error = true;
+        });
+    };
+    
+    var validateSave = function(){
+    	return ( !!$scope.vehiclePlate && !!$scope.vehicleType && !!$scope.vehiclePassengers && !!$scope.vehicleWheels );
+    };    
+    
+    var resetSaveVehicleForm = function(){
+    	$scope.vehiclePlate = '';
+    	$scope.vehicleType = '';
+    	$scope.vehiclePassengers = '';
+    	$scope.vehicleWheels = '';
+    };
+    
+    
+}])
+ .controller('listBooked', ['$scope', 'vehicleService', function($scope, vehicleService){
+	 
+    $scope.bookeds = [];
+  
+    var listBooked = function(){
+        var result = vehicleService.listAllBooked();
+		result.success(function($optionResult){
+			if (!!$optionResult.errorMessage){
+				$scope.error = true;
+				$scope.errorMessage = $optionResult.errorMessage;
+			} else {
+				$scope.bookeds = $optionResult.result;
+			}
+        })
+        .error(function($error){
+			$scope.errorMessage = !!$error.message ? $error.message : "Error listing booked vehicles";
+			$scope.error = true;
+        });
+    };
+    
+    listBooked();
+    
+}]).controller('listAvailableVehicles', ['$scope', 'vehicleService', function($scope, vehicleService){
+	 
+    $scope.vehicles = [];
+  
+    var listAllAvailable = function(){
+        var result = vehicleService.listAllAvailable();
+		result.success(function($optionResult){
+			if (!!$optionResult.errorMessage){
+				$scope.error = true;
+				$scope.errorMessage = $optionResult.errorMessage;
+			} else {
+				$scope.vehicles = $optionResult.result;
+			}
+        })
+        .error(function($error){
+			$scope.errorMessage = !!$error.message ? $error.message : "Error listing available vehicles";
+			$scope.error = true;
+        });
+    };
+    
+    listAllAvailable();
+    
+}]);
   
   

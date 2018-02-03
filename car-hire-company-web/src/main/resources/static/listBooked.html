@@ -1,0 +1,34 @@
+<div class="alert alert-danger" ng-show="error">
+	<div>{{errorMessage}}</div>
+</div>
+<div class="alert alert-success" ng-show="success">
+	<div>{{message}}</div>
+</div>
+<div class="pageTag">
+	<h3>Booked Vehicles</h3>
+</div>
+<div ng-show="authenticated">
+	<div>
+		<div class="tableLabel">Type</div>
+		<div class="tableLabel">Plate</div>
+		<div class="tableLabel">Wheels</div>
+		<div class="tableLabel">Passengers</div>
+		<div class="tableLabel">Customer</div>
+		<div class="tableLabel">Booked When</div>
+		<div>&nbsp;</div>			
+	</div><br/><br/>
+	<div ng-repeat="booked in bookeds">
+		<div class="tableRow">{{booked.vehicle.type}}</div>
+		<div class="tableRow">{{booked.vehicle.plate}}</div>
+		<div class="tableRow">{{booked.vehicle.wheels}}</div>
+		<div class="tableRow">{{booked.vehicle.passengers}}</div>
+		<div class="tableRow">{{booked.customer.email}}</div>
+		<div class="tableRow">{{booked.bookedWhen}}</div><br/><br/>
+	</div>
+	<div>
+		<br/><br/>
+	</div>
+</div>
+<div ng-show="!authenticated">
+	<p>Login to register a vehicle</p>
+</div>

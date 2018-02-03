@@ -1,0 +1,30 @@
+<div class="alert alert-danger" ng-show="error">
+	<div>{{errorMessage}}</div>
+</div>
+<div class="alert alert-success" ng-show="success">
+	<div>{{message}}</div>
+</div>
+<div class="pageTag">
+	<h3>Registered Vehicles</h3>
+</div>
+<div ng-show="authenticated">
+	<div>
+		<div class="tableLabel">Type</div>
+		<div class="tableLabel">Plate</div>
+		<div class="tableLabel">Wheels</div>
+		<div class="tableLabel">Passengers</div>
+		<div>&nbsp;</div>		
+	</div><br/><br/>
+	<div ng-repeat="vehicle in vehicles">
+		<div class="tableRow">{{vehicle.type}}</div>
+		<div class="tableRow">{{vehicle.plate}}</div>
+		<div class="tableRow">{{vehicle.wheels}}</div>
+		<div class="tableRow">{{vehicle.passengers}}</div><br/><br/>
+	</div>
+	<div>
+		<br/><br/>
+	</div>
+</div>
+<div ng-show="!authenticated">
+	<p>Login to register a vehicle</p>
+</div>

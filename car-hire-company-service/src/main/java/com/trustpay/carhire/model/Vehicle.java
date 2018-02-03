@@ -19,9 +19,9 @@ public class Vehicle implements Serializable {
 
     private VehicleType type;
 
-    private Integer wheels;
+    private String wheels;
 
-    private Integer passengers;
+    private String passengers;
 
     private boolean booked;
 
@@ -40,7 +40,7 @@ public class Vehicle implements Serializable {
     }
 
 
-    public Vehicle( String plate, VehicleType type, Integer wheels, Integer passengers ) {
+    public Vehicle( String plate, VehicleType type, String wheels, String passengers ) {
 
         super();
         this.plate = plate;
@@ -72,7 +72,7 @@ public class Vehicle implements Serializable {
     /**
      * @return the wheels
      */
-    public Integer getWheels() {
+    public String getWheels() {
 
         return wheels;
     }
@@ -82,7 +82,7 @@ public class Vehicle implements Serializable {
      * @param wheels
      *            the wheels to set
      */
-    public void setWheels( Integer wheels ) {
+    public void setWheels( String wheels ) {
 
         this.wheels = wheels;
     }
@@ -91,7 +91,7 @@ public class Vehicle implements Serializable {
     /**
      * @return the passengers
      */
-    public Integer getPassengers() {
+    public String getPassengers() {
 
         return passengers;
     }
@@ -101,7 +101,7 @@ public class Vehicle implements Serializable {
      * @param passengers
      *            the passengers to set
      */
-    public void setPassengers( Integer passengers ) {
+    public void setPassengers( String passengers ) {
 
         this.passengers = passengers;
     }

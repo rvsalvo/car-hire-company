@@ -1,0 +1,22 @@
+.pageTag{
+	padding-bottom: 40px;
+}
+.field{
+	padding-left:20px;
+	height:50px;
+}
+.tableLabel{
+	width:150px;
+	height:50px;
+	padding: 10px 10px 10px 10px;
+	float:left;
+	font-weight:bold;
+}
+.tableRow{
+	width:150px;
+	height:20px;
+	padding: 12px 12px 12px 12px;
+	float:left;
+	color: cdcdcd;
+}
+label { width: 100px; }

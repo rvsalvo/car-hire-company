@@ -68,7 +68,7 @@ public class CarHireController {
 
 
     @RequestMapping( method = RequestMethod.GET, value = "/listAllBooked" )
-    public ResponseEntity< OperationResult< Collection< Vehicle > > > listAllBooked() {
+    public ResponseEntity< OperationResult< Collection< Book > > > listAllBooked() {
 
         try {
             return status( HttpStatus.OK ).body( new OperationResult<>( vehicleService.listAllBooked() ) );

@@ -52,7 +52,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 
     @Override
-    public Collection< Vehicle > listAllBooked() {
+    public Collection< Book > listAllBooked() {
 
         return vehicleRepository.listAllBooked();
     }

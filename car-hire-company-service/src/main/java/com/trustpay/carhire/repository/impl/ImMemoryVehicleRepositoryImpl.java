@@ -47,9 +47,9 @@ public class ImMemoryVehicleRepositoryImpl implements VehicleRepository {
 
 
     @Override
-    public Collection< Vehicle > listAllBooked() {
+    public Collection< Book > listAllBooked() {
 
-        return this.vechicles.values().stream().filter( v -> v.isBooked() ).collect( Collectors.toSet() );
+        return this.books.values();
     }
 
 
