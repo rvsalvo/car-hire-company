@@ -1,4 +1,4 @@
-angular.module('home', [ 'ngRoute' ])
+angular.module('home', [ 'ngRoute', 'ui.bootstrap' ])
   .config(function($routeProvider, $httpProvider) {
 
     $routeProvider.when('/', {
@@ -13,8 +13,8 @@ angular.module('home', [ 'ngRoute' ])
         templateUrl : 'register.html',
         controller : 'register',
         controllerAs: 'controller'
-    }).when('/listBooked', {
-        templateUrl : 'listBooked.html',
+    }).when('/listBooks', {
+        templateUrl : 'listBooks.html',
         controller : 'listBooked',
         controllerAs: 'controller'
     }).when('/listAvailableVehicles', {
@@ -43,16 +43,29 @@ angular.module('home', [ 'ngRoute' ])
     this.listAllAvailable = function (){
     	return $http.get('/listAllAvailable');
     };
+    this.findVehicles = function ( val ){
+	    return $http.get('/findVehicles', {
+	    	params:{
+	        	 text:val
+	         }
+	    }).then(function(response){
+	      return response.data;
+	    });
+    };
 }])
-  .controller('home', ['$scope', 'vehicleService', function($scope, vehicleService){
-  
+  .controller('home', ['$http', '$scope', 'vehicleService', function($http, $scope, vehicleService){
+	  
+	$scope.findVehicles = function( val ){
+	    return vehicleService.findVehicles( val );
+	};
+	
     $scope.book = function(){
     	if ( !validateBook() ){
     		$scope.errorMessage = 'All fields are required!';
     		$scope.error = true;
     		return;
     	}    	
-        var book = {'vehicle':{'plate':$scope.vehiclePlate},'customer':{'email':$scope.customerEmail}}
+        var book = {'vehicle':{'plate':$scope.vehicleText},'customer':{'email':$scope.customerEmail}}
         
         var bookUrl = "/book";
         var result = vehicleService.book(book, bookUrl );
@@ -67,7 +80,7 @@ angular.module('home', [ 'ngRoute' ])
 			resetBookForm();
         })
         .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error booking vehicle!";
+			$scope.errorMessage = !!$error.errorMessage ? $error.errorMessage : "Error booking vehicle!";
 			$scope.error = true;
         });
     };
@@ -78,9 +91,8 @@ angular.module('home', [ 'ngRoute' ])
     };
     
     var validateBook = function(){
-    	return ( !!$scope.customerEmail && !!$scope.vehiclePlate );
-    };        
-    
+    	return ( !!$scope.customerEmail && !!$scope.vehicleText );
+    }; 
     
 }])
   .controller('navigation', function($rootScope, $http, $location) {
@@ -150,7 +162,7 @@ angular.module('home', [ 'ngRoute' ])
 			resetSaveVehicleForm();
         })
         .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error saving vehicle!";
+			$scope.errorMessage = !!$error.errorMessage ? $error.errorMessage : "Error saving vehicle!";
 			$scope.error = true;
         });
     };
@@ -183,7 +195,7 @@ angular.module('home', [ 'ngRoute' ])
 			}
         })
         .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error listing booked vehicles";
+			$scope.errorMessage = !!$error.errorMessage ? $error.errorMessage : "Error listing booked vehicles";
 			$scope.error = true;
         });
     };
@@ -205,7 +217,7 @@ angular.module('home', [ 'ngRoute' ])
 			}
         })
         .error(function($error){
-			$scope.errorMessage = !!$error.message ? $error.message : "Error listing available vehicles";
+			$scope.errorMessage = !!$error.errorMessage ? $error.errorMessage : "Error listing available vehicles";
 			$scope.error = true;
         });
     };

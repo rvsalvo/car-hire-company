@@ -60,21 +60,29 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Book book( Book book ) {
-        
+
         Assert.notNull( book, "Book can not be null" );
 
         final Vehicle vehicle = book.getVehicle();
         final Customer customer = book.getCustomer();
 
         Assert.notNull( vehicle, "Vehicle can not be null" );
-        Assert.notNull( vehicle.getPlate(), "Vehicle plate can not be null" );        
+        Assert.notNull( vehicle.getPlate(), "Vehicle plate can not be null" );
+        Assert.notNull( vehicle.getType(), "Vehicle type can not be null" );
 
         Assert.notNull( customer, "Customer can not be null" );
-        Assert.notNull( customer.getEmail(), "Customer email can not be null" );        
+        Assert.notNull( customer.getEmail(), "Customer email can not be null" );
 
         LOG.debug( "Booking vehicle {} for customer {}", vehicle, customer );
 
         return vehicleRepository.book( vehicle, customer );
+    }
+
+
+    @Override
+    public Collection< String > findVehicles( String text ) {
+
+        return vehicleRepository.findVehicles( text );
     }
 
 }

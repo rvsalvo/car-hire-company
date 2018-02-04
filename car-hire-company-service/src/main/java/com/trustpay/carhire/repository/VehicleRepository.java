@@ -28,4 +28,7 @@ public interface VehicleRepository {
 
     Book book( Vehicle vehicle, Customer customer );
 
+
+    Collection< String > findVehicles( String text );
+
 }

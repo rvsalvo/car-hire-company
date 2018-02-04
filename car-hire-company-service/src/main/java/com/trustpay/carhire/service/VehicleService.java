@@ -26,4 +26,7 @@ public interface VehicleService {
 
 
     Book book( Book book );
+
+
+    Collection< String > findVehicles( String text );
 }

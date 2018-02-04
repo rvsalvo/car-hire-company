@@ -62,7 +62,7 @@ public class VehicleServiceTest {
 
         bookVehicle();
 
-        final Collection< Vehicle > vehicles = vehicleService.listAllBooked();
+        final Collection< Book > vehicles = vehicleService.listAllBooked();
 
         assertFalse( vehicles.isEmpty() );
 

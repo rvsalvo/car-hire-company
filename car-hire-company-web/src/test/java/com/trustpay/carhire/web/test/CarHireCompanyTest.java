@@ -65,6 +65,11 @@ public class CarHireCompanyTest {
         response = this.restTemplate.postForEntity( "/book", bookEntity, OperationResult.class );
         assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
 
+        response = this.restTemplate.exchange( "/listAllBooked", HttpMethod.GET, new HttpEntity<>( headers ), OperationResult.class );
+
+        assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
+        assertTrue( !( (Collection) response.getBody().getResult() ).isEmpty() );
+
     }
 
 
@@ -80,6 +85,7 @@ public class CarHireCompanyTest {
 
         assertThat( response.getStatusCodeValue(), equalTo( 200 ) );
         assertTrue( ( (Collection) response.getBody().getResult() ).isEmpty() );
+
     }
 
 
@@ -98,6 +104,13 @@ public class CarHireCompanyTest {
     }
 
 
+    /**
+     * Create header for authentication.
+     * 
+     * @param username
+     * @param password
+     * @return the Header
+     */
     private HttpHeaders createHeaders( String username, String password ) {
 
         return new HttpHeaders() {

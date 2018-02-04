@@ -7,10 +7,13 @@ package com.trustpay.carhire.repository.impl;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.trustpay.carhire.model.Book;
 import com.trustpay.carhire.model.Customer;
@@ -67,6 +70,36 @@ public class ImMemoryVehicleRepositoryImpl implements VehicleRepository {
 
         this.books.put( customer.getEmail(), book );
         return book;
+    }
+
+
+    @Override
+    public Collection< String > findVehicles( String text ) {
+
+        Set< String > vehicles = new HashSet<>();
+
+        if ( StringUtils.isEmpty( text ) ) {
+            this.vechicles.values().stream().filter( vehicle -> !vehicle.isBooked() ).forEach( vehicle -> vehicles.add( vehicle.toString() ) );
+            return vehicles;
+        }
+
+        String searchText = text.toLowerCase();
+
+        for ( Vehicle vehicle : this.vechicles.values() ) {
+
+            if ( vehicle.isBooked() ) {
+                continue;
+            }
+
+            String vehicleText = vehicle.toString();
+
+            if ( vehicleText.toLowerCase().indexOf( searchText ) >= 0 ) {
+                vehicles.add( vehicleText );
+            }
+
+        }
+
+        return vehicles;
     }
 
 }

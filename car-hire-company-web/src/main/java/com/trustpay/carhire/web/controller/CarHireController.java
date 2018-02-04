@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trustpay.carhire.model.Book;
@@ -87,6 +88,14 @@ public class CarHireController {
         } catch ( final Exception e ) {
             return generateErrorResult( e );
         }
+    }
+
+
+    @RequestMapping( method = RequestMethod.GET, value = "/findVehicles" )
+    public Collection< String > findVehicles( @RequestParam( "text" ) String text ) {
+
+        return vehicleService.findVehicles( text );
+
     }
 
 

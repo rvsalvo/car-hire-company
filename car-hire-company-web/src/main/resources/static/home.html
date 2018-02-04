@@ -1,8 +1,8 @@
 <div class="alert alert-danger" ng-show="error">
-    <div>{{errorMessage}}</div>
+	<div>{{errorMessage}}</div>
 </div>
 <div class="alert alert-success" ng-show="success">
-    <div>{{message}}</div>
+	<div>{{message}}</div>
 </div>
 <div height="200" style="padding-bottom: 40px;" ng-show="!authenticated">
 	<h3>Car Hire Company</h3>
@@ -11,22 +11,24 @@
 	<h3>Book a Vechicle</h3>
 </div>
 <div ng-show="authenticated">
-	<div style="height:30px;">
-		<label>Vehicle </label>
-		<input type="text" ng-model="vehicleText" style="width:250px;"/>
+		<div style="height: 30px;">
+			<label>Vehicle </label> <input type="text" placeholder="Search for a vehicle" ng-model="vehicleText"
+				uib-typeahead="vehicle for vehicle in findVehicles($viewValue)" style="width: 250px;"/>
+		</div>
+
+		<div style="float: left; height: 30px;">
+			<label>&nbsp;Email </label> <input type="text"
+				ng-model="customerEmail" style="width: 250px;" />
+		</div>
+		<div style="float: left; margin-left: 20px;">
+			<button ng-click="book()">Book Vehicle</button>
+		</div>
+		<div>
+			<br /> <br />
+		</div>
 	</div>
-	<div style="float:left;height:30px;">
-		<label>&nbsp;Email </label>
-		<input type="text" ng-model="customerEmail" style="width:250px;"/>
+	<div ng-show="!authenticated">
+		<p>
+			<a href="#/login">Login</a> to book a vehicle
+		</p>
 	</div>
-	<div style="float:left;margin-left: 20px;">
-		<button ng-click="book()">Book Vehicle</button>
-	</div>
-	<div>
-		<br/>
-		<br/>
-	</div>
-</div>
-<div ng-show="!authenticated">
-    <p><a href="#/login">Login</a> to book a vehicle</p>
-</div>
