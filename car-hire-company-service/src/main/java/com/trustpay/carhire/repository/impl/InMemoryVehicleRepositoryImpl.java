@@ -4,6 +4,7 @@
 package com.trustpay.carhire.repository.impl;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,15 +24,19 @@ import com.trustpay.carhire.repository.exception.VehicleNotFoundException;
 
 
 /**
+ * Responsible for storing in-memory information.
+ * 
  * @author Rodrigo Salvo
  *
  */
 @Repository
-public class ImMemoryVehicleRepositoryImpl implements VehicleRepository {
+public class InMemoryVehicleRepositoryImpl implements VehicleRepository {
 
-    private Map< String, Book > books = new HashMap<>();
+    private Set< Book > books = new HashSet<>();
 
     private Map< String, Vehicle > vechicles = new HashMap<>();
+
+    private static final SimpleDateFormat FMT = new SimpleDateFormat( "dd/MM/yyyy" );
 
 
     @Override
@@ -52,7 +57,7 @@ public class ImMemoryVehicleRepositoryImpl implements VehicleRepository {
     @Override
     public Collection< Book > listAllBooked() {
 
-        return this.books.values();
+        return this.books;
     }
 
 
@@ -66,9 +71,9 @@ public class ImMemoryVehicleRepositoryImpl implements VehicleRepository {
         }
 
         savedVehicle.setBooked( true );
-        Book book = new Book( savedVehicle, customer, new Date() );
+        Book book = new Book( savedVehicle, customer, FMT.format( new Date() ) );
 
-        this.books.put( customer.getEmail(), book );
+        this.books.add( book );
         return book;
     }
 
@@ -76,30 +81,15 @@ public class ImMemoryVehicleRepositoryImpl implements VehicleRepository {
     @Override
     public Collection< String > findVehicles( String text ) {
 
-        Set< String > vehicles = new HashSet<>();
-
         if ( StringUtils.isEmpty( text ) ) {
-            this.vechicles.values().stream().filter( vehicle -> !vehicle.isBooked() ).forEach( vehicle -> vehicles.add( vehicle.toString() ) );
-            return vehicles;
+            return this.vechicles.values().stream().filter( vehicle -> !vehicle.isBooked() ).map( vehicle -> vehicle.toString() ).collect( Collectors.toSet() );
         }
 
-        String searchText = text.toLowerCase();
+        final String searchText = text.toLowerCase();
 
-        for ( Vehicle vehicle : this.vechicles.values() ) {
+        return this.vechicles.values().stream().filter( vehicle -> !vehicle.isBooked() ).map( vehicle -> vehicle.toString() )
+            .filter( vechile -> vechile.toLowerCase().indexOf( searchText ) >= 0 ).collect( Collectors.toSet() );
 
-            if ( vehicle.isBooked() ) {
-                continue;
-            }
-
-            String vehicleText = vehicle.toString();
-
-            if ( vehicleText.toLowerCase().indexOf( searchText ) >= 0 ) {
-                vehicles.add( vehicleText );
-            }
-
-        }
-
-        return vehicles;
     }
 
 }

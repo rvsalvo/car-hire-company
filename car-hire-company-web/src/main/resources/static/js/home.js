@@ -65,7 +65,13 @@ angular.module('home', [ 'ngRoute', 'ui.bootstrap' ])
     		$scope.error = true;
     		return;
     	}    	
-        var book = {'vehicle':{'plate':$scope.vehicleText},'customer':{'email':$scope.customerEmail}}
+    	var index = $scope.vehicleText.indexOf('plate');
+    	if ( index == -1 ){
+			$scope.error = true;
+			$scope.errorMessage = 'Vehicle not found';
+			return;
+    	}    	
+        var book = {'vehicle':{'plate':$scope.vehicleText.substring(index+5).trim()},'customer':{'email':$scope.customerEmail}}
         
         var bookUrl = "/book";
         var result = vehicleService.book(book, bookUrl );

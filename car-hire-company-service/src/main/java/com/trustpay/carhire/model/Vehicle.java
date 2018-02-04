@@ -198,7 +198,7 @@ public class Vehicle implements Serializable {
     @Override
     public String toString() {
 
-        return type.toString().toLowerCase() + " wheels " + wheels + " passengers " + passengers + " plate " + plate;
+        return ( type == null ? "" : type.toString().toLowerCase() ) + " wheels " + wheels + " passengers " + passengers + " plate " + plate;
     }
 
 

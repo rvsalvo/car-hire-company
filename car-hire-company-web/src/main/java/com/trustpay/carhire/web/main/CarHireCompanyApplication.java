@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 /**
+ * Main class, responsible for starting the application.
  * 
  * @author Rodrigo Salvo
  *

@@ -5,7 +5,6 @@ package com.trustpay.carhire.model;
 
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
@@ -20,7 +19,7 @@ public class Book implements Serializable {
 
     private Customer customer;
 
-    private Date bookedWhen;
+    private String bookedWhen;
 
 
     public Book() {
@@ -29,7 +28,7 @@ public class Book implements Serializable {
     }
 
 
-    public Book( Vehicle vehicle, Customer customer, Date bookedWhen ) {
+    public Book( Vehicle vehicle, Customer customer, String bookedWhen ) {
 
         super();
         this.vehicle = vehicle;
@@ -87,7 +86,7 @@ public class Book implements Serializable {
     /**
      * @return the bookedWhen
      */
-    public Date getBookedWhen() {
+    public String getBookedWhen() {
 
         return bookedWhen;
     }
@@ -97,7 +96,7 @@ public class Book implements Serializable {
      * @param bookedWhen
      *            the bookedWhen to set
      */
-    public void setBookedWhen( Date bookedWhen ) {
+    public void setBookedWhen( String bookedWhen ) {
 
         this.bookedWhen = bookedWhen;
     }

@@ -17,6 +17,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 /**
+ * For scanning the packages for Spring bean creations. So we don't need a .XML file.
+ * 
  * @author Rodrigo Salvo
  *
  */

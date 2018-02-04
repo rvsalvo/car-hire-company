@@ -13,6 +13,8 @@ package com.trustpay.carhire.web.view;
 
 
 /**
+ * Represents the result object plus an error message in cases of the operation returns an error.
+ * 
  * @author Rodrigo Salvo
  *
  */

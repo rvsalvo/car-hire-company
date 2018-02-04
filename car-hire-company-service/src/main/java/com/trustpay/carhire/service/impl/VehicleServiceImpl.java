@@ -68,7 +68,6 @@ public class VehicleServiceImpl implements VehicleService {
 
         Assert.notNull( vehicle, "Vehicle can not be null" );
         Assert.notNull( vehicle.getPlate(), "Vehicle plate can not be null" );
-        Assert.notNull( vehicle.getType(), "Vehicle type can not be null" );
 
         Assert.notNull( customer, "Customer can not be null" );
         Assert.notNull( customer.getEmail(), "Customer email can not be null" );
@@ -81,6 +80,8 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Collection< String > findVehicles( String text ) {
+
+        LOG.trace( "Searching for vechicles {}", text );
 
         return vehicleRepository.findVehicles( text );
     }

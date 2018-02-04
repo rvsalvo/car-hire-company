@@ -36,6 +36,12 @@ public class CarHireController {
     private VehicleService vehicleService;
 
 
+    /**
+     * Process the register of a vehicle.
+     * 
+     * @param vehicle
+     * @return
+     */
     @RequestMapping( method = RequestMethod.POST, value = "/save" )
     public ResponseEntity< OperationResult< Void > > save( @RequestBody Vehicle vehicle ) {
 
@@ -56,6 +62,11 @@ public class CarHireController {
     }
 
 
+    /**
+     * List all available vehicles, i.e. not booked yet.
+     * 
+     * @return Available vehicles
+     */
     @RequestMapping( method = RequestMethod.GET, value = "/listAllAvailable" )
     public ResponseEntity< OperationResult< Collection< Vehicle > > > listAllAvailable() {
 
@@ -68,6 +79,11 @@ public class CarHireController {
     }
 
 
+    /**
+     * List all booked vehicles.
+     * 
+     * @return booked vehicles
+     */
     @RequestMapping( method = RequestMethod.GET, value = "/listAllBooked" )
     public ResponseEntity< OperationResult< Collection< Book > > > listAllBooked() {
 
@@ -80,6 +96,12 @@ public class CarHireController {
     }
 
 
+    /**
+     * Books a vehicle, storing its information.
+     * 
+     * @param book
+     * @return the booked vehicle
+     */
     @RequestMapping( method = RequestMethod.POST, value = "/book" )
     public ResponseEntity< OperationResult< Book > > book( @RequestBody Book book ) {
 
@@ -91,6 +113,12 @@ public class CarHireController {
     }
 
 
+    /**
+     * Searches for all available vehicles.
+     * 
+     * @param text
+     * @return string representation of available vehicles
+     */
     @RequestMapping( method = RequestMethod.GET, value = "/findVehicles" )
     public Collection< String > findVehicles( @RequestParam( "text" ) String text ) {
 
